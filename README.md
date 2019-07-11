@@ -8,7 +8,7 @@ The PAM module is located at the following location
 
 To use the PAM Module with Okta a few steps need to be taken.
 * Create an Okta Application to handle Authentication 
-* Set Keys to tell the PAM Module where to go for authentication
+* Set Keys for the PAM Module
 * Enable PAM module for sudo commands
 * Configure which Authentication Calls to use PAM for
 
@@ -21,6 +21,14 @@ To use the PAM Module with Okta a few steps need to be taken.
 4. On the next screen, Name your application and for login Redirect URI enter in: `https://127.0.0.1/jamfconnect` and then hit save.
 5. Your app is now created.  You can assign it to users.  However, before you do so we need to configure a few more thing.  Make your App look like the following:
 ![OIDC App Settings](https://user-images.githubusercontent.com/17932646/61080455-18cd5100-a3f3-11e9-90fc-562d7093d1a7.png)
+
+## Set Keys for the PAM Module
+| Key                    | Description                                                            | Example         |
+|------------------------|------------------------------------------------------------------------|-----------------|
+| AuthUIOIDCRedirectURI  | The Redirect URI the user is sent to after successful authentication.  | `<key>AuthUIOIDCRedirectURI</key>` `<string>https://127.0.0.1/jamfconnect</string>` |
+| {{username}} | Username to authenticate to Jamf Pro with       | administrator             |
+| {{password}} | Password of the user authenticating to Jamf Pro | pa$$word                  |
+
 
 ## Enable PAM
 JAMF has good instrutions on how to enable the PAM module.  [PAM Module Documentation](https://docs.jamf.com/jamf-connect/1.4.1/administrator-guide/Pluggable_Authentication_Module_(PAM).html)
