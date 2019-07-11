@@ -23,6 +23,14 @@ To use the PAM Module with Okta a few steps need to be taken.
 ![OIDC App Settings](https://user-images.githubusercontent.com/17932646/61080455-18cd5100-a3f3-11e9-90fc-562d7093d1a7.png)
 
 ## Enable PAM
+JAMF has good instrutions on how to enable the PAM module.  [PAM Module Documentation](https://docs.jamf.com/jamf-connect/1.4.1/administrator-guide/Pluggable_Authentication_Module_(PAM).html)
+
+You can also follow these instructions using the nano editor.
+1. Open terminal and edit the following file `sudo nano /etc/pam.d/sudo`
+2. Once the editor opens, add the following to the 2nd of line of the file.  Right below `# sudo: auth account password session`: `auth sufficient pam_saml.so`
+3. Press control + x to exit and then "y" and the enter key to save changes
+
+
 This collection utilizes the following variables which should be defined within one of the scopes in Postman. Jamf recommends using environments instead of global or collection variables simply for the ease of use and potential for defining different Jamf Pro environments or users. Follow Postman's documentation to [Manage Environments](https://learning.getpostman.com/docs/postman/environments_and_globals/manage_environments).
 
 | Variable     | Description                                     | Example                   |
