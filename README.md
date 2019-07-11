@@ -20,7 +20,7 @@ To use the PAM Module with Okta a few steps need to be taken.
 3. On the following Screen, select Native App as platform and OpenID Connect as Sign In Method.  Hit Create to advance to next screen.
 4. On the next screen, Name your application and for login Redirect URI enter in: `https://127.0.0.1/jamfconnect` and then hit save.
 5. Your app is now created.  You can assign it to users.  However, before you do so we need to configure a few more thing.  Make your App look like the following:
-(images/OIDC App Settings.png)
+(https://raw.githubusercontent.com/zacharysfisher/jamf_connect_pam/master/images/OIDC%20App%20Settings.png?token=AEI2CZWGNDMGXLF5LIMJUUS5GDFKC)
 
 ## Enable PAM
 This collection utilizes the following variables which should be defined within one of the scopes in Postman. Jamf recommends using environments instead of global or collection variables simply for the ease of use and potential for defining different Jamf Pro environments or users. Follow Postman's documentation to [Manage Environments](https://learning.getpostman.com/docs/postman/environments_and_globals/manage_environments).
