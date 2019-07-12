@@ -26,7 +26,7 @@ To use the PAM Module with Okta a few steps need to be taken.
 | Key                    | Description                                                            | Example         |
 |------------------------|------------------------------------------------------------------------|-----------------|
 | AuthUIOIDCRedirectURI  | The Redirect URI the user is sent to after successful authentication.  | `<key>AuthUIOIDCRedirectURI</key>` `<string>https://127.0.0.1/jamfconnect</string>` |
-| {{username}} | Username to authenticate to Jamf Pro with       | administrator             |
+| AuthUIOIDCProvider | Specifies the IdP provider integrated with Jamf Connect Login | `<key>AuthUIOIDCProvider</key>` `<string>Okta</string>` |
 | {{password}} | Password of the user authenticating to Jamf Pro | pa$$word                  |
 
 
