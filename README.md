@@ -24,6 +24,8 @@ To use the PAM Module with Okta a few steps need to be taken.
 6. Lastly, scroll down and save the value of ClientID for use later.
 
 ## Set Keys for the PAM Module
+Keys for the PAM Module get written to same plist as other Jamf Connect Login Keys: `/Library/Preferences/com.jamf.connect.login.plist`
+
 | Key                    | Description                                                            | Example         |
 |------------------------|------------------------------------------------------------------------|-----------------|
 | AuthUIOIDCRedirectURI  | The Redirect URI the user is sent to after successful authentication.  | `<key>AuthUIOIDCRedirectURI</key>` `<string>https://127.0.0.1/jamfconnect</string>` |
@@ -31,6 +33,9 @@ To use the PAM Module with Okta a few steps need to be taken.
 | AuthUIOIDCTenant       | Specifices the Tenenant or Org of your IDP Instance                    | `<key>AuthUIOIDCTenant</key>` `<string>Acme</string>` |
 | AuthUIOIDCClientID     | The Client ID of the added app in your IdP used to authenticate the user | `<key>AuthUIOIDCClientID</key>` `<string>0oad0gmia54gn3y8923h1</string>` |
 
+These keys can either be set using a Configuration Profile with JAMF Pro or by using the defaults command.
+
+Example Defaults command: `sudo defaults write /Library/Preferences/com.jamf.connect.login.plist AuthUIOIDCProvider -string Okta`
 
 ## Enable PAM
 JAMF has good instrutions on how to enable the PAM module.  [PAM Module Documentation](https://docs.jamf.com/jamf-connect/1.4.1/administrator-guide/Pluggable_Authentication_Module_(PAM).html)
@@ -41,8 +46,42 @@ You can also follow these instructions using the nano editor.
 3. Press control + x to exit and then "y" and the enter key to save changes
 
 
-This collection utilizes the following variables which should be defined within one of the scopes in Postman. Jamf recommends using environments instead of global or collection variables simply for the ease of use and potential for defining different Jamf Pro environments or users. Follow Postman's documentation to [Manage Environments](https://learning.getpostman.com/docs/postman/environments_and_globals/manage_environments).
+## Configure which Authentication Calls to use PAM for
+To configure the PAM module to use Okta Authentication, we must use the Security Tool that ships with macOS.  The file that controls the Auth Mechanism is `com.jamf.connect.sudosaml`.  You can read this file by typing the following into terminal:
+`security authorizationdb read com.jamf.connect.sudosaml`
 
+The results shoudl look like below:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>class</key>
+	<string>evaluate-mechanisms</string>
+	<key>comment</key>
+	<string>Rule to allow for Azure authentication</string>
+	<key>created</key>
+	<real>569394749.63492501</real>
+	<key>identifier</key>
+	<string>authchanger</string>
+	<key>mechanisms</key>
+	<array>
+		<string>JamfConnectLogin:AuthUINoCache</string>
+	</array>
+	<key>modified</key>
+	<real>582579735.53209305</real>
+	<key>requirement</key>
+	<string>identifier authchanger and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: Joel Rennich (92Q527YFQS)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+	<key>shared</key>
+	<true/>
+	<key>tries</key>
+	<integer>10000</integer>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
+```
 | Variable     | Description                                     | Example                   |
 |--------------|-------------------------------------------------|---------------------------|
 | {{url}}      | Hostname and port of the Jamf Pro environment   | company.jamfcloud.com:443 |
