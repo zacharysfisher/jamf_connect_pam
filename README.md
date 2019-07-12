@@ -113,7 +113,7 @@ Now you can test this by trying to install a package.  If everything was configu
 
 
 ## Authorization Rules ##
-| Rule Domain     | Description                                   
+| Rule Domain     | Description  |                                 
 |--------------|-------------------------------------------------|---------------------------|
 | system.install.software | Checks when the user is installing new software (Pkg, bundled installers   | 
 | {{username}} | Username to authenticate to Jamf Pro with       |
