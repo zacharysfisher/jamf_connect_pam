@@ -45,9 +45,10 @@ You can also follow these instructions using the nano editor.
 2. Once the editor opens, add the following to the 2nd of line of the file.  Right below `# sudo: auth account password session`: `auth sufficient pam_saml.so`
 3. Press control + x to exit and then "y" and the enter key to save changes
 
+Now you can use the `sudo` command and you should be prompted for Okta login.  The next step is to configure other authentication methods to use Okta as well.
 
 ## Configure which Authentication Calls to use PAM for
-To configure the PAM module to use Okta Authentication, we must use the Security Tool that ships with macOS.  The file that controls the Auth Mechanism is `com.jamf.connect.sudosaml`.  You can read this file by typing the following into terminal:
+To configure the PAM module to use Okta Authentication for things like unlocking System Preferences and installing software, we must use the Security Tool that ships with macOS.  The file that controls the Auth Mechanism is `com.jamf.connect.sudosaml`.  You can read this file by typing the following into terminal:
 `security authorizationdb read com.jamf.connect.sudosaml`
 
 The results shoudl look like below:
@@ -82,11 +83,38 @@ The results shoudl look like below:
 </dict>
 </plist>
 ```
-| Variable     | Description                                     | Example                   |
-|--------------|-------------------------------------------------|---------------------------|
-| {{url}}      | Hostname and port of the Jamf Pro environment   | company.jamfcloud.com:443 |
-| {{username}} | Username to authenticate to Jamf Pro with       | administrator             |
-| {{password}} | Password of the user authenticating to Jamf Pro | pa$$word                  |
 
-## Getting Started
-After the collection has been imported and valid values have been defined for the variables, all calls should be supported with minimal input required. Additional data will be required either in the form of a parameter value and/or a request body.
+You will notice the `mechanisms` key.  Currently, it is set to `AuthUINoCache`.  If you would like Jamf Connect to not prompt the user for authentication for as long as the Okta Token length is set, change this to `AuthUI`.
+######Currently this feature does not work as intended, and JAMF has been notified.  No Estimate can be provided at this time for when it will be fixed.######
+
+To be able to use the PAM Module for Authentication we need to do the following steps:
+1. Make a backup of the sudosaml file to use to overwrite the local authentication calls
+2. Determine with authorizationdb calls you want to use Jamf Connect for
+3. Backup the authorizationdb file you are about to overwrite with Jamf Connect
+4. Replace local authentication rule with the jamf connect rule
+
+
+###Make a backup of the sudosaml file to use to overwrite the local authentication calls###
+To make a backup of the sudosaml file we need to use the security tool.  First you should go to a directory that you want to work out of.  Once there, you can run this command to make a backup:
+`security authorizationdb read com.jamf.connect.sudosaml > sudosaml.org`
+
+You now have a backup of the Jamf Connect mechanism for authentication.
+
+###Determine which authorizationdb calls you want use Jamf Connect for###
+In macOS, there are many different authorization calls that are made when certain tasks are completed.  For this example, we will edit the authorization used to see if a user can install a pkg.  This authorization is `system.install.software`.  YOu can view the current rule for this call by using this command: `security authorizationdb read system.install.software`.  This default rule checks if the user is in the admin group to allow the installation of the package.
+
+###Backup the authorizationdb file you are about to overwrite with Jamf Connect###
+Now that we have determined what the authorization rule that we want to edit is we can replace the default macOS rule with the Jamf Connect one.  Before we do this, we should back up the macOS default rule in case things go wrong.  We can backup this file by typing this command: `security authorizationdb read system.isntall.software > installsoftware.org`.  
+
+###Replace local authentication rule with Jamf Connect rule###
+Now we can add our Jamf Connect rule.  We do this by using the following command: `security authorizationdb write system.install.software < sudosaml.org`.  This will overwrite the rule with the backup of the jamf connect mechanism we made of backup of earlier.  you can verify this worked by typing `security authorizationdb read system.install.software` and you should see the Jamf Connect mechanism.
+
+Now you can test this by trying to install a package.  If everything was configured properly, you should be prompted for an Okta login when you install Packages or use the `sudo` command in terminal.
+
+
+## Authorization Rules ##
+| Rule Domain     | Description                                   
+|--------------|-------------------------------------------------|---------------------------|
+| system.install.software | Checks when the user is installing new software (Pkg, bundled installers   | 
+| {{username}} | Username to authenticate to Jamf Pro with       |
+| {{password}} | Password of the user authenticating to Jamf Pro | 
