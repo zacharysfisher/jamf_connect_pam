@@ -21,13 +21,15 @@ To use the PAM Module with Okta a few steps need to be taken.
 4. On the next screen, Name your application and for login Redirect URI enter in: `https://127.0.0.1/jamfconnect` and then hit save.
 5. Your app is now created.  You can assign it to users.  However, before you do so we need to configure a few more thing.  Make your App look like the following:
 ![OIDC App Settings](https://user-images.githubusercontent.com/17932646/61080455-18cd5100-a3f3-11e9-90fc-562d7093d1a7.png)
+6. Lastly, scroll down and save the value of ClientID for use later.
 
 ## Set Keys for the PAM Module
 | Key                    | Description                                                            | Example         |
 |------------------------|------------------------------------------------------------------------|-----------------|
 | AuthUIOIDCRedirectURI  | The Redirect URI the user is sent to after successful authentication.  | `<key>AuthUIOIDCRedirectURI</key>` `<string>https://127.0.0.1/jamfconnect</string>` |
-| AuthUIOIDCProvider | Specifies the IdP provider integrated with Jamf Connect Login | `<key>AuthUIOIDCProvider</key>` `<string>Okta</string>` |
-| {{password}} | Password of the user authenticating to Jamf Pro | pa$$word                  |
+| AuthUIOIDCProvider     | Specifies the IdP provider integrated with Jamf Connect Login          | `<key>AuthUIOIDCProvider</key>` `<string>Okta</string>` |
+| AuthUIOIDCTenant       | Specifices the Tenenant or Org of your IDP Instance                    | `<key>AuthUIOIDCTenant</key>` `<string>Acme</string>` |
+| AuthUIOIDCClientID     | The Client ID of the added app in your IdP used to authenticate the user | `<key>AuthUIOIDCClientID</key>` `<string>0oad0gmia54gn3y8923h1</string>` |
 
 
 ## Enable PAM
