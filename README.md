@@ -118,3 +118,4 @@ Now you can test this by trying to install a package.  If everything was configu
 | system.install.software | Checks when the user is installing new software (Pkg, bundled installers)   | 
 | system.install.apple-software | Checks when user is installing Apple-provided software |
 | system.preferences.network | Checked by the Admin framework when making changes to Network Preferences pane | 
+| system.services.systemconfiguration.network | Checks when users edits Network Service settings |
