@@ -119,3 +119,5 @@ Now you can test this by trying to install a package.  If everything was configu
 | system.install.apple-software | Checks when user is installing Apple-provided software |
 | system.preferences.network | Checked by the Admin framework when making changes to Network Preferences pane | 
 | system.services.systemconfiguration.network | Checks when users edits Network Service settings |
+| system.preferences.printing | Checked by the Admin frameowrk when making changes to Printers Preferences pane |
+| system.print.operator | 
