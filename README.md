@@ -120,4 +120,20 @@ Now you can test this by trying to install a package.  If everything was configu
 | system.preferences.network | Checked by the Admin framework when making changes to Network Preferences pane | 
 | system.services.systemconfiguration.network | Checks when users edits Network Service settings |
 | system.preferences.printing | Checked by the Admin frameowrk when making changes to Printers Preferences pane |
-| system.print.operator | 
+| system.print.operator | LPAdmin Operator Permissions |
+| system.print.admin | Checks if user has Printer Admin rights |
+| system.preferences.security | Checked by the Admin framework when making changes to the Security preference pane |
+| system.preferences.security.remotepair | Used by Bezel Services to gate IR remote pairing. |
+| com.apple.DiskManagement.reserveKEK | Used by diskmanagementd to allow use of the reserve KEK |
+| system.services.directory.configure | For making Directory Services changes |
+| system.preferences.accounts | Checked by the Admin framework when making changes to the Users & Groups preference pane |
+| system.csfde.requestpassword | Used by CoreStorage Full Disk Encryption to request the user's password |
+| system.preferences | Checked by the Admin framework when making changes to certain System Preferences |
+| system.preferences.datetime | Checked by the Admin framework when making changes to the Date & Time preference pane |
+| system.preferences.energysaver | Checked by the Admin framework when making changes to the Date Energy Saver pane |
+| system.preferences.accessibility | Checked when making changes to the Accessibility Preferences |
+| system.install.apple-config-data | Checked when installing Apple Config Data Updates |
+| system.privilege.admin | checked when programs request to run a tool as root (e.g., some installers) |
+| com.apple.desktopservices | For privileged file operations from within the Finder |
+| system.preferences.startupdisk | Checked by the Admin framework when making changes to the Startup Disk preference pane |
+| system.preferences.sharing | Checked by the Admin framework when making changes to the Sharing preference pane |
