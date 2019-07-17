@@ -94,7 +94,7 @@ To be able to use the PAM Module for Authentication we need to do the following 
 4. Replace local authentication rule with the jamf connect rule
 
 
-###Make a backup of the sudosaml file to use to overwrite the local authentication calls###
+### Make a backup of the sudosaml file to use to overwrite the local authentication calls###
 To make a backup of the sudosaml file we need to use the security tool.  First you should go to a directory that you want to work out of.  Once there, you can run this command to make a backup:
 `security authorizationdb read com.jamf.connect.sudosaml > sudosaml.org`
 
