@@ -30,7 +30,7 @@ Keys for the PAM Module get written to same plist as other Jamf Connect Login Ke
 |------------------------|------------------------------------------------------------------------|-----------------|
 | AuthUIOIDCRedirectURI  | The Redirect URI the user is sent to after successful authentication.  | `<key>AuthUIOIDCRedirectURI</key>` `<string>https://127.0.0.1/jamfconnect</string>` |
 | AuthUIOIDCProvider     | Specifies the IdP provider integrated with Jamf Connect Login          | `<key>AuthUIOIDCProvider</key>` `<string>Okta</string>` |
-| AuthUIOIDCTenant       | Specifices the Tenenant or Org of your IDP Instance                    | `<key>AuthUIOIDCTenant</key>` `<string>Acme</string>` |
+| AuthUIOIDCTenant       | Specifices the Tenant or Org of your IDP Instance                    | `<key>AuthUIOIDCTenant</key>` `<string>Acme</string>` |
 | AuthUIOIDCClientID     | The Client ID of the added app in your IdP used to authenticate the user | `<key>AuthUIOIDCClientID</key>` `<string>0oad0gmia54gn3y8923h1</string>` |
 
 These keys can either be set using a Configuration Profile with JAMF Pro or by using the defaults command.
