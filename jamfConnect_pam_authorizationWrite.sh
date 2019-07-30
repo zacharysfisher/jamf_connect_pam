@@ -44,14 +44,4 @@ function writeJamfAuthorization {
 	done
 }
 
-
-
-
-
-#for authorization in $authorizations
-#do
-#    echo "Backuping up Authorizations"
-#	security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/$authorization.bak
-#	echo "security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/sudosaml.org"
-#done
-
+writeJamfAuthorization
