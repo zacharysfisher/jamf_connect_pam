@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>system.install.software</key>
+	<false />
+	<key>system.install.apple-software</key>
+	<true/>
+	<key>system.preferences.network</key>
+	<true/>
+	<key>system.services.systemconfiguration.network</key>
+	<true/>
+	<key>system.preferences.printing</key>
+	<true/>
+	<key>system.print.operator</key>
+	<true/>
+	<key>system.print.admin</key>
+	<true/>
+	<key>system.preferences.security</key>
+	<true/>
+	<key>system.preferences.security.remotepair</key>
+	<true/>
+	<key>com.apple.DiskManagement.reserveKEK</key>
+	<true/>
+	<key>system.preferences.accounts</key>
+	<true/>
+	<key>system.csfde.requestpassword</key>
+	<true/>
+	<key>system.preferences</key>
+	<true/>
+	<key>system.preferences.datetime</key>
+	<true/>
+	<key>system.preferences.energysaver</key>
+	<true/>
+	<key>system.preferences.accessibility</key>
+	<true/>
+	<key>system.install.apple-config-data</key>
+	<true/>
+	<key>system.privilege.admin</key>
+	<true/>
+	<key>com.apple.desktopservices</key>
+	<true/>
+	<key>system.preferences.sharing</key>
+	<true/>
+</dict>
+</plist>
+
+
