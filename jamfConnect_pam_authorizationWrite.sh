@@ -2,7 +2,7 @@
 
 
 # variables
-authorizations=$(cat "/Users/zachary.fisherintersection.com/Dropbox (Control Group)/IXN_Mac_Admin/Jamf Connect/authorization_list.txt")
+authorizations=$(cat "/Library/Application\ Support/JAMF/PAM/authorization_list.txt")
 JAMF_BINARY="/usr/local/bin/jamf"
 pamPath=/Library/Application\ Support/JAMF/PAM
 authFile=/Library/Application\ Support/JAMF/PAM/authorization_list.txt
@@ -34,7 +34,7 @@ function writeJamfAuthorization {
 		echo "Backing up Default Authorizations"
 		security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/$authorization.bak
 		echo "Check Plist for Write Value"
-		authorizationValue=$(defaults read "/Users/zachary.fisherintersection.com/Dropbox (Control Group)/IXN_Mac_Admin/Jamf Connect/com.jamf.connect.pam.plist" $authorization)
+		authorizationValue=$(defaults read "/Library/Application\ Support/JAMF/PAM/Jamf Connect/com.jamf.connect.pam.plist" $authorization)
 		if [[ $authorizationValue = 1 ]]; then
 			echo "Writing Jamf Connect Mechanism to $authorization}"
 			echo "security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/sudosaml.org"
