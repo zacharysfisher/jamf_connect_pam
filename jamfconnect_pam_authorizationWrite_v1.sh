@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This deployment will automatically write all authorizations and make backups.  This is not controlled via a plist or configuration profile.
 
 # variables
 authorizations=$(cat "/Library/Application\ Support/JAMF/PAM/authorization_list.txt")
