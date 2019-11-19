@@ -6,7 +6,7 @@ authorizations=$(cat "/Library/Application\ Support/JAMF/PAM/authorization_list.
 JAMF_BINARY="/usr/local/bin/jamf"
 pamPath=/Library/Application\ Support/JAMF/PAM
 authFile=/Library/Application\ Support/JAMF/PAM/authorization_list.txt
-prefsTool=/Users/Shared/prefs.py
+#prefsTool=/Users/Shared/prefs.py
 pamModule="/usr/local/lib/pam/pam_saml.so.2"
 sudoConfig=$(cat /etc/pam.d/sudo | grep "pam_saml.so" | awk '{print $3}')
 
@@ -28,13 +28,13 @@ else
 fi
 
 
-# Checks for Prefs Tool
-if [ -f "$prefsTool" ]; then
-	echo "Prefs Tool exists"
-else
-	echo "Prefs Tool not found, installing..."
-	$JAMF_BINARY policy -event prefsTool
-fi
+## Checks for Prefs Tool
+#if [ -f "$prefsTool" ]; then
+#	echo "Prefs Tool exists"
+#else
+#	echo "Prefs Tool not found, installing..."
+#	$JAMF_BINARY policy -event prefsTool
+#fi
 
 # Checks for PAM Module
 if [ -f "$pamModule" ]; then
@@ -58,8 +58,11 @@ else
 	chown root:wheel /etc/pam.d/sudo
 fi
 
-# Create Backup of Jamf Connect Mechanism
+# Create Backup of Jamf Connect Mechanism / remove NoCache
 security authorizationdb read com.jamf.connect.sudosaml > /Library/Application\ Support/JAMF/PAM/sudosaml.org
+sed -i -e 's/AuthUINoCache/AuthUI/g' /Library/Application\ Support/JAMF/PAM/sudosaml.org
+# Write new Mechanism to jamf connect
+security authorizationdb read com.jamf.connect.sudosaml < /Library/Application\ Support/JAMF/PAM/sudosaml.org
 
 # Write Authorization Function
 function writeJamfAuthorization {
