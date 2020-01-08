@@ -3,7 +3,7 @@
 # This deployment will automatically write all authorizations and make backups.  This is not controlled via a plist or configuration profile.
 
 # variables
-authorizations=$(cat "/Library/Application\ Support/JAMF/PAM/authorization_list.txt")
+authorizations=$(cat "/Library/Application Support/JAMF/PAM/authorization_list.txt")
 JAMF_BINARY="/usr/local/bin/jamf"
 pamPath=/Library/Application\ Support/JAMF/PAM
 authFile=/Library/Application\ Support/JAMF/PAM/authorization_list.txt

@@ -7,7 +7,6 @@ authorizations=$(cat "/Library/Application\ Support/JAMF/PAM/authorization_list.
 JAMF_BINARY="/usr/local/bin/jamf"
 pamPath=/Library/Application\ Support/JAMF/PAM
 authFile=/Library/Application\ Support/JAMF/PAM/authorization_list.txt
-prefsTool=/Users/Shared/prefs.py
 pamModule="/usr/local/lib/pam/pam_saml.so.2"
 sudoConfig=$(cat /etc/pam.d/sudo | grep "pam_saml.so" | awk '{print $3}')
 
@@ -26,15 +25,6 @@ if [ -f "$authFile" ]; then
 else
 	echo "$authFile not found, installing..."
 	$JAMF_BINARY policy -event authFile
-fi
-
-
-## Checks for Prefs Tool
-if [ -f "$prefsTool" ]; then
-	echo "Prefs Tool exists"
-else
-	echo "Prefs Tool not found, installing..."
-	$JAMF_BINARY policy -event prefsTool
 fi
 
 # Checks for PAM Module
@@ -72,7 +62,7 @@ function writeJamfAuthorization {
 		echo "Backing up Default Authorizations"
 		security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/$authorization.bak
 		echo "Check Plist for Write Value"
-		authorizationValue=$(python /Users/Shared/prefs.py com.jamf.connect.pam "${authorization}" | awk '{print $3}')
+		authorizationValue=$(defaults read /Library/Managed\ Preferences/com.jamf.connect.pam.plist "${authorization}" | awk '{print $3}')
 		if [[ $authorizationValue = "True" ]]; then
 			echo "Writing Jamf Connect Mechanism to $authorization}"
 			echo "security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/sudosaml.org"
