@@ -17,6 +17,7 @@ then
 else
 	echo "Error: PAM Directory does not exists."
 	mkdir -p /Library/Application\ Support/JAMF/PAM
+	mkdir -p /Library/Application\ Support/JAMF/PAM/backup
 fi
 
 # Checks for authorization_list
@@ -61,7 +62,7 @@ function writeJamfAuthorization {
 	for authorization in $authorizations
 	do
 		echo "Backing up Default Authorizations"
-		security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/$authorization.bak
+		security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/backup/$authorization.bak
 		echo "Writing Jamf Connect Mechanism to $authorization}"
 		echo "security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/sudosaml.org"
 	done
