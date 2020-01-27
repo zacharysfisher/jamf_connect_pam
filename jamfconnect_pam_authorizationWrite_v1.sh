@@ -7,7 +7,7 @@ authorizations=$(cat "/Library/Application Support/JAMF/PAM/authorization_list.t
 JAMF_BINARY="/usr/local/bin/jamf"
 pamPath=/Library/Application\ Support/JAMF/PAM
 authFile=/Library/Application\ Support/JAMF/PAM/authorization_list.txt
-pamModule="/usr/local/lib/pam/pam_saml.so.2"
+pamModule=/usr/local/lib/pam/pam_saml.so.2
 sudoConfig=$(cat /etc/pam.d/sudo | grep "pam_saml.so" | awk '{print $3}')
 
 # Create Backup Directory if it does not exist
@@ -16,7 +16,6 @@ then
 	echo "PAM Directory exists." 
 else
 	echo "Error: PAM Directory does not exists."
-	mkdir -p /Library/Application\ Support/JAMF/PAM
 	mkdir -p /Library/Application\ Support/JAMF/PAM/backup
 fi
 
@@ -26,6 +25,7 @@ if [ -f "$authFile" ]; then
 else
 	echo "$authFile not found, installing..."
 	$JAMF_BINARY policy -event authFile
+	authorizations=$(cat "/Library/Application Support/JAMF/PAM/authorization_list.txt")
 fi
 
 # Checks for PAM Module
@@ -33,7 +33,7 @@ if [ -f "$pamModule" ]; then
 	echo "PAM Module Installed"
 else
 	echo "PAM Module not installed, installing..."
-	$JAMF_BINARY policy -event pammodule
+	$JAMF_BINARY policy -event "Jamf Connect Login Trigger"
 fi
 
 # Rewrites Sudo Authorization
