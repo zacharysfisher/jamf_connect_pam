@@ -137,3 +137,12 @@ Now you can test this by trying to install a package.  If everything was configu
 | com.apple.desktopservices | For privileged file operations from within the Finder |
 | system.preferences.startupdisk | Checked by the Admin framework when making changes to the Startup Disk preference pane |
 | system.preferences.sharing | Checked by the Admin framework when making changes to the Sharing preference pane |
+
+
+## Deployment
+To deploy the authorization/sudo pam module to machines you need components.
+1. A Jamf Pro policy that runs the script in this repository `jamfconnect_pam_authorizationWrite_v1.sh`
+2. A JAMF Pro Policy that installs auth_file (this has a list of all the authorization rewrites you want to make on the target systems). `authorization_list.txt` in this repository.
+3. A Jamf Pro policy that installs Jamf Connect Login since that is needed for all of the authorizaiton calls.
+4. A Jamf Pro Configuration profile that pushes the PAM module settings to the client.
+5. An Okta app that we use to check if a user has been assigned to allow these authorization calls to check against.
