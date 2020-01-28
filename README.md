@@ -143,9 +143,9 @@ Now you can test this by trying to install a package.  If everything was configu
 
 ## Deployment
 To deploy the authorization/sudo pam module to machines you need components.
-1. A Jamf Pro policy that runs the script in this repository `jamfconnect_pam_authorizationWrite_v1.sh`.  This can be set to `recurring` or `ongoing` frequency depending on your environment.
+1. A Jamf Pro policy that runs the script in this repository `jamfconnect_pam_authorizationWrite_v1.sh`.  This can be set to *recurring* or *ongoing* frequency depending on your environment.
 2. A Jamf Pro Policy that installs auth_file (this has a list of all the authorization rewrites you want to make on the target systems). `authorization_list.txt` in this repository.  This policy needs to have a custom trigger of `authFile`, scoped to `All Computers`, and set to an `ongoing` frequency.
-3. A Jamf Pro policy that installs Jamf Connect Login since that is needed for all of the authorizaiton calls.  In the script in this repository, it uses `Jamf Connect Login Trigger` as a trigger but this can be changed.
-4. A Jamf Pro Configuration profile that pushes the PAM module settings to the client.  Please refer to the `Set Keys for the PAM Module` section for the keys to include.
-5. An Okta app that the user must have to make any sudo/authorization requests on the mac.  Refer to `Create an Okta Application to handle Authentication` for configuration.
+3. A Jamf Pro policy that installs Jamf Connect Login since that is needed for all of the authorizaiton calls.  In the script in this repository, it uses *Jamf Connect Login Trigger* as a trigger but this can be changed.
+4. A Jamf Pro Configuration profile that pushes the PAM module settings to the client.  Please refer to the **Set Keys for the PAM Module** section for the keys to include.
+5. An Okta app that the user must have to make any sudo/authorization requests on the mac.  Refer to **Create an Okta Application to handle Authentication** for configuration.
 6. Depending if you use Jamf Connect Login for logging into Macs, you will have to edit the authchanger command or you will have undesirable results.
