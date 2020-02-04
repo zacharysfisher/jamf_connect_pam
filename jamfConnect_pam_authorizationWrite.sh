@@ -43,11 +43,25 @@ else
 	echo "Copying Sudo File"
 	cp /etc/pam.d/sudo /etc/pam.d/sudo.bak
 	echo "Inserting new line"
-	sed -e '/# sudo: auth account password session/a\'$'\n''auth       sufficient     pam_saml.so' /etc/pam.d/sudo.bak > /etc/pam.d/sudo
+	sed -e '/# sudo: auth account password session/a\'$'\n''auth       required     pam_saml.so' /etc/pam.d/sudo.bak > /etc/pam.d/sudo
+	sed 's/auth       required       pam_opendirectory.so/#auth      required       pam_opendirectory.so/' /etc/pam.d/sudo.bak > /etc/pam.d/sudo 
 	echo "Editing Permissions on new File"
 	chmod 444 /etc/pam.d/sudo
 	chown root:wheel /etc/pam.d/sudo
+	echo "Clean up backup file"
+	rm -rf /etc/pam.d/sudo.bak
+	echo "Copying Sudo File"
+	cp /etc/pam.d/sudo /etc/pam.d/sudo.bak
+	echo "Remove local auth"
+	sed 's/auth       required       pam_opendirectory.so/#auth      required       pam_opendirectory.so/' /etc/pam.d/sudo.bak > /etc/pam.d/sudo 
+	echo "Editing Permissions on new File"
+	chmod 444 /etc/pam.d/sudo
+	chown root:wheel /etc/pam.d/sudo
+	echo "Clean up backup file"
+	rm -rf /etc/pam.d/sudo.bak
 fi
+
+# Removes Local Auth
 
 # Create Backup of Jamf Connect Mechanism / remove NoCache
 security authorizationdb read com.jamf.connect.sudosaml > /Library/Application\ Support/JAMF/PAM/sudosaml.org
