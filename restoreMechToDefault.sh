@@ -52,7 +52,7 @@ function restoreAuthorization {
 	for authorization in $authorizations
 	do
 		echo "Restore default Mechanism to ${authorization}"
-		echo "security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/backup/${authorization}.bak"
+		security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/backup/${authorization}.bak
 	done
 }
 
