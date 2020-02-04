@@ -10,6 +10,18 @@ authFile=/Library/Application\ Support/JAMF/PAM/authorization_list.txt
 pamModule="/usr/local/lib/pam/pam_saml.so.2"
 sudoConfig=$(cat /etc/pam.d/sudo | grep "pam_saml.so" | awk '{print $3}')
 
+# Write Authorization Function
+writeJamfAuthorization()
+ {
+	for authorization in $authorizations
+	do
+		echo "Backing up Default Authorizations"
+		security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/backup/$authorization.bak
+		echo "Writing Jamf Connect Mechanism to $authorization}"
+		security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/sudosaml.org
+	done
+}
+
 # Create Backup Directory if it does not exist
 if [ -d "$pamPath" ] 
 then
@@ -25,6 +37,7 @@ if [ -f "$authFile" ]; then
 else
 	echo "$authFile not found, installing..."
 	$JAMF_BINARY policy -event authFile
+	authorizations=$(cat "/Library/Application Support/JAMF/PAM/authorization_list.txt")
 fi
 
 # Checks for PAM Module
@@ -61,29 +74,14 @@ else
 	rm -rf /etc/pam.d/sudo.bak
 fi
 
-# Removes Local Auth
-
 # Create Backup of Jamf Connect Mechanism / remove NoCache
+echo "Creating Backup of JamfConnect Mech - Removing NoCache"
 security authorizationdb read com.jamf.connect.sudosaml > /Library/Application\ Support/JAMF/PAM/sudosaml.org
 sed -i -e 's/AuthUINoCache/AuthUI/g' /Library/Application\ Support/JAMF/PAM/sudosaml.org
+
 # Write new Mechanism to jamf connect
+echo "Write new Mech to Jamf Folder"
 security authorizationdb read com.jamf.connect.sudosaml < /Library/Application\ Support/JAMF/PAM/sudosaml.org
 
-# Write Authorization Function
-function writeJamfAuthorization {
-	for authorization in $authorizations
-	do
-		echo "Backing up Default Authorizations"
-		security authorizationdb read "${authorization}" > /Library/Application\ Support/JAMF/PAM/$authorization.bak
-		echo "Check Plist for Write Value"
-		authorizationValue=$(defaults read /Library/Managed\ Preferences/com.jamf.connect.pam.plist "${authorization}" | awk '{print $3}')
-		if [[ $authorizationValue = "True" ]]; then
-			echo "Writing Jamf Connect Mechanism to $authorization}"
-			echo "security authorizationdb write "${authorization}" < /Library/Application\ Support/JAMF/PAM/sudosaml.org"
-		else
-			echo "Passing Authorization Rewrite"
-		fi
-	done
-}
-
+echo "Function"
 writeJamfAuthorization
