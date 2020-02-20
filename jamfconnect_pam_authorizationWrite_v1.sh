@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # This deployment will automatically write all authorizations and make backups.  This is not controlled via a plist or configuration profile.
 
 # variables
@@ -50,6 +48,7 @@ if [ -f "$pamModule" ]; then
 else
 	echo "PAM Module not installed, installing..."
 	$JAMF_BINARY policy -event "Jamf Connect Login-enrollment"
+	/usr/local/bin/authchanger -reset -Okta -DefaultJCRight
 fi
 
 # Rewrites Sudo Authorization / Remove Local Auth
