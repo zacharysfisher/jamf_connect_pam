@@ -88,3 +88,39 @@ security authorizationdb read com.jamf.connect.sudosaml < /Library/Application\ 
 
 echo "Authorization Function"
 writeJamfAuthorization
+
+
+# Writes System Install Software Mech to allow Root
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs$
+<plist version="1.0">
+<dict>
+	<key>allow-root</key>
+	<true/>
+	<key>class</key>
+	<string>user</string>
+	<key>comment</key>
+	<string>Rule to allow for Azure authentication</string>
+	<key>created</key>
+	<real>623683870.02615499</real>
+	<key>identifier</key>
+	<string>authchanger</string>
+	<key>mechanisms</key>
+	<array>
+		<string>JamfConnectLogin:AuthUINoCache</string>
+	</array>
+	<key>modified</key>
+	<real>623683870.02615499</real>
+	<key>requirement</key>
+	<string>anchor apple generic and identifier authchanger and (certificat$
+	<key>shared</key>
+	<true/>
+	<key>tries</key>
+	<integer>10000</integer>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>' >> /Library/Application\ Support/JAMF/PAM/backup/system.install.software.bak
+
+security authorizationdb write system.install.software < /Library/Application\ Support/JAMF/PAM/backup/system.install.software.bak
+security authorizationdb write system.install.apple-software < /Library/Application\ Support/JAMF/PAM/backup/system.install.software.bak
