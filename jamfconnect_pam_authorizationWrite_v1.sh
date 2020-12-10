@@ -124,3 +124,4 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 
 security authorizationdb write system.install.software < /Library/Application\ Support/JAMF/PAM/backup/system.install.software.bak
 security authorizationdb write system.install.apple-software < /Library/Application\ Support/JAMF/PAM/backup/system.install.software.bak
+security authorizationdb write system.install.apple-config-data < /Library/Application\ Support/JAMF/PAM/backup/system.install.software.bak
