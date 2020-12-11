@@ -1,4 +1,4 @@
-#!/bin/bash
+	#!/bin/bash
 
 # This version of deployment uses a plist to see which authorizations to write.  Look in this repo's directory for com.jamf.connect.pam.plist and set the ones you want to true.  This can be controlled via Config Profile in JAMF.  **Still under development/testing**
 
